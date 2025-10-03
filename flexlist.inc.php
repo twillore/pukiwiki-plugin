@@ -420,11 +420,11 @@ function plugin_flexlist_get_css()
     <style>
       /* --- 全体コンテナ / Main Container --- */
       /* プラグイン全体の外観を定義します。 / Defines the overall appearance of the plugin. */
-      #flexlist-engine { border: 1px solid #dcdcdc; border-radius: 5px; background-color: #fbf8f2; box-sizing: border-box; }
+      #flexlist-engine { border: 1px solid #dcdcdc; border-radius: 3px; background-color: #ffffff; box-sizing: border-box; }
       #flexlist-engine * { box-sizing: border-box; }
       /* --- 操作パネル / Controls Panel --- */
       /* 検索ボックス、グループ化、表示件数選択のUIを配置します。 / Lays out the search box, grouping, and pagination controls. */
-      #flexlist-engine .controls { padding: 15px; border-bottom: 1px solid #dcdcdc; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background-color: #f9f6f0; }
+      #flexlist-engine .controls { padding: 15px; border-bottom: 1px solid #dcdcdc; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background-color: #f1f1f1; }
       #flexlist-engine .search, #flexlist-engine .group-by-select, #flexlist-engine .pagination-select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; height: 38px; }
       #flexlist-engine .search { flex-grow: 1; min-width: 200px; }
       /* --- テーブル基本設定 / Basic Table Styles --- */
@@ -437,32 +437,32 @@ function plugin_flexlist_get_css()
       #flexlist-engine th { padding: 0; vertical-align: top; background-color: #f2f2f2; border-bottom: 1px solid #dcdcdc; text-align: left; font-weight: normal; }
       #flexlist-engine .header-content { position: relative; display: flex; align-items: stretch; justify-content: space-between; height: 45px; }
       /* --- ソートボタン / Sort Button --- */
-      #flexlist-engine .sort { flex-grow: 1; background: none; border: none; font-weight: bold; cursor: pointer; padding: 0 15px; text-align: left; height: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333; }
+      #flexlist-engine .sort { flex-grow: 1; background: none; border: none; font-weight: inherit; cursor: pointer; padding: 0 15px; text-align: left; height: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333; }
       #flexlist-engine .sort:hover { background-color: #e8e8e8; }
       #flexlist-engine .sort::after { content: '▲▼'; font-size: 0.8em; opacity: 0.5; margin-left: 5px; }
-      #flexlist-engine .sort.asc::after, #flexlist-engine .sort.desc::after { opacity: 1; color: #2a4a75; }
+      #flexlist-engine .sort.asc::after, #flexlist-engine .sort.desc::after { opacity: 1; color: #0056b3; }
       #flexlist-engine .sort.asc::after { content: '▲'; }
       #flexlist-engine .sort.desc::after { content: '▼'; }
       
       /* --- フィルター機能 / Filter Feature --- */
       #flexlist-engine .filter-toggle { flex-shrink: 0; height: 100%; width: 30px; border: none; border-left: 1px solid #dcdcdc; background: none; cursor: pointer; font-size: 0.8em; color: #555; padding: 0; }
-      #flexlist-engine .filter-toggle:hover { background-color: #e0d8c8; }
+      #flexlist-engine .filter-toggle:hover { background-color: #e9ecef; }
       /* レイアウト崩れを防ぐための、見えないダミーボタン。 / Invisible dummy button to prevent layout collapse. */
       #flexlist-engine .filter-toggle.is-dummy { visibility: hidden; cursor: default; }
-      #flexlist-engine .filter-popup { display: none; position: absolute; top: 100%; right: 0; z-index: 10; min-width: 200px; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 10px; max-height: 300px; overflow-y: auto; text-align: left; }
+      #flexlist-engine .filter-popup { display: none; position: absolute; top: 100%; right: 0; z-index: 10; min-width: 200px; background-color: #fff; border: 1px solid #ccc; border-radius: 3px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 10px; max-height: 300px; overflow-y: auto; text-align: left; }
       #flexlist-engine .filter-popup.show { display: block; }
       #flexlist-engine .filter-popup label { display: block; padding: 6px 8px; border-radius: 3px; cursor: pointer; white-space: nowrap; font-weight: normal; }
       #flexlist-engine .filter-popup label:hover { background-color: #f5f5f5; }
       #flexlist-engine .filter-popup input { margin-right: 8px; vertical-align: middle; }
       /* --- グループヘッダー / Group Header --- */
-      #flexlist-engine .group-header-row td { background-color: #e8e8e8; font-weight: bold; padding: 10px 15px; border-top: 2px solid #ccc; border-bottom: 1px solid #ccc; }
+      #flexlist-engine .group-header-row td { background-color: #e8e8e8; font-weight: inherit; padding: 10px 15px; border-top: 2px solid #ccc; border-bottom: 1px solid #ccc; }
       
       /* --- ページネーション / Pagination --- */
       #flexlist-engine .pagination { padding: 15px; text-align: center; }
       #flexlist-engine .pagination li { display: inline-block; }
       #flexlist-engine .pagination a { display: block; padding: 5px 10px; text-decoration: none; border-radius: 3px; color: #333; }
-      #flexlist-engine .pagination a:hover { background-color: #e0d8c8; }
-      #flexlist-engine .pagination .active a { font-weight: bold; background-color: #c5a15a; color: #fff; }
+      #flexlist-engine .pagination a:hover { background-color: #e9ecef; }
+      #flexlist-engine .pagination .active a { font-weight: inherit; background-color: #007bff; color: #fff; }
     </style>
 EOD;
 }
