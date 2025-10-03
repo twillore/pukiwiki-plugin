@@ -55,7 +55,7 @@ function plugin_flexlist_convert()
     $js_events = plugin_flexlist_get_js_events($config);
     $js = plugin_flexlist_get_js_wrapper($js_core . $js_events, $debug_mode);
     $css  = plugin_flexlist_get_css();
-    
+
     // --- 最終出力 / Final Output ---
     return $php_engine_report . $html . $js . $css;
 }
@@ -414,59 +414,55 @@ EOD;
  * @en Generates the CSS for the data table.
  * @return string CSSの<style>ブロック。 / The CSS <style> block.
  */
-function plugin_datatable_get_css()
+function plugin_flexlist_get_css()
 {
     return <<<EOD
     <style>
       /* --- 全体コンテナ / Main Container --- */
       /* プラグイン全体の外観を定義します。 / Defines the overall appearance of the plugin. */
-      #datatable-engine { border: 1px solid #dcdcdc; border-radius: 5px; background-color: #fbf8f2; box-sizing: border-box; }
-      #datatable-engine * { box-sizing: border-box; }
-
+      #flexlist-engine { border: 1px solid #dcdcdc; border-radius: 5px; background-color: #fbf8f2; box-sizing: border-box; }
+      #flexlist-engine * { box-sizing: border-box; }
       /* --- 操作パネル / Controls Panel --- */
       /* 検索ボックス、グループ化、表示件数選択のUIを配置します。 / Lays out the search box, grouping, and pagination controls. */
-      #datatable-engine .controls { padding: 15px; border-bottom: 1px solid #dcdcdc; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background-color: #f9f6f0; }
-      #datatable-engine .search, #datatable-engine .group-by-select, #datatable-engine .pagination-select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; height: 38px; }
-      #datatable-engine .search { flex-grow: 1; min-width: 200px; }
-
+      #flexlist-engine .controls { padding: 15px; border-bottom: 1px solid #dcdcdc; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background-color: #f9f6f0; }
+      #flexlist-engine .search, #flexlist-engine .group-by-select, #flexlist-engine .pagination-select { padding: 8px; border: 1px solid #ccc; border-radius: 4px; height: 38px; }
+      #flexlist-engine .search { flex-grow: 1; min-width: 200px; }
       /* --- テーブル基本設定 / Basic Table Styles --- */
-      #datatable-engine .table-container { overflow-x: auto; }
-      #datatable-engine table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-      #datatable-engine td { padding: 12px 15px; border-top: 1px solid #dcdcdc; text-align: left; vertical-align: top; word-wrap: break-word; word-break: break-all; }
+      #flexlist-engine .table-container { overflow-x: auto; }
+      #flexlist-engine table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+      #flexlist-engine td { padding: 12px 15px; border-top: 1px solid #dcdcdc; text-align: left; vertical-align: top; word-wrap: break-word; word-break: break-all; }
       
       /* --- ヘッダー(th) / Table Header (th) --- */
       /* すべてのヘッダー関連UI（ソート、フィルター）の基準点となります。 / Serves as the base for all header UI (sort, filter). */
-      #datatable-engine th { padding: 0; vertical-align: top; background-color: #f2f2f2; border-bottom: 1px solid #dcdcdc; text-align: left; font-weight: normal; }
-      #datatable-engine .header-content { position: relative; display: flex; align-items: stretch; justify-content: space-between; height: 45px; }
-
+      #flexlist-engine th { padding: 0; vertical-align: top; background-color: #f2f2f2; border-bottom: 1px solid #dcdcdc; text-align: left; font-weight: normal; }
+      #flexlist-engine .header-content { position: relative; display: flex; align-items: stretch; justify-content: space-between; height: 45px; }
       /* --- ソートボタン / Sort Button --- */
-      #datatable-engine .sort { flex-grow: 1; background: none; border: none; font-weight: bold; cursor: pointer; padding: 0 15px; text-align: left; height: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333; }
-      #datatable-engine .sort:hover { background-color: #e8e8e8; }
-      #datatable-engine .sort::after { content: '▲▼'; font-size: 0.8em; opacity: 0.5; margin-left: 5px; }
-      #datatable-engine .sort.asc::after, #datatable-engine .sort.desc::after { opacity: 1; color: #2a4a75; }
-      #datatable-engine .sort.asc::after { content: '▲'; }
-      #datatable-engine .sort.desc::after { content: '▼'; }
+      #flexlist-engine .sort { flex-grow: 1; background: none; border: none; font-weight: bold; cursor: pointer; padding: 0 15px; text-align: left; height: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333; }
+      #flexlist-engine .sort:hover { background-color: #e8e8e8; }
+      #flexlist-engine .sort::after { content: '▲▼'; font-size: 0.8em; opacity: 0.5; margin-left: 5px; }
+      #flexlist-engine .sort.asc::after, #flexlist-engine .sort.desc::after { opacity: 1; color: #2a4a75; }
+      #flexlist-engine .sort.asc::after { content: '▲'; }
+      #flexlist-engine .sort.desc::after { content: '▼'; }
       
       /* --- フィルター機能 / Filter Feature --- */
-      #datatable-engine .filter-toggle { flex-shrink: 0; height: 100%; width: 30px; border: none; border-left: 1px solid #dcdcdc; background: none; cursor: pointer; font-size: 0.8em; color: #555; padding: 0; }
-      #datatable-engine .filter-toggle:hover { background-color: #e0d8c8; }
+      #flexlist-engine .filter-toggle { flex-shrink: 0; height: 100%; width: 30px; border: none; border-left: 1px solid #dcdcdc; background: none; cursor: pointer; font-size: 0.8em; color: #555; padding: 0; }
+      #flexlist-engine .filter-toggle:hover { background-color: #e0d8c8; }
       /* レイアウト崩れを防ぐための、見えないダミーボタン。 / Invisible dummy button to prevent layout collapse. */
-      #datatable-engine .filter-toggle.is-dummy { visibility: hidden; cursor: default; }
-      #datatable-engine .filter-popup { display: none; position: absolute; top: 100%; right: 0; z-index: 10; min-width: 200px; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 10px; max-height: 300px; overflow-y: auto; text-align: left; }
-      #datatable-engine .filter-popup.show { display: block; }
-      #datatable-engine .filter-popup label { display: block; padding: 6px 8px; border-radius: 3px; cursor: pointer; white-space: nowrap; font-weight: normal; }
-      #datatable-engine .filter-popup label:hover { background-color: #f5f5f5; }
-      #datatable-engine .filter-popup input { margin-right: 8px; vertical-align: middle; }
-
+      #flexlist-engine .filter-toggle.is-dummy { visibility: hidden; cursor: default; }
+      #flexlist-engine .filter-popup { display: none; position: absolute; top: 100%; right: 0; z-index: 10; min-width: 200px; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 10px; max-height: 300px; overflow-y: auto; text-align: left; }
+      #flexlist-engine .filter-popup.show { display: block; }
+      #flexlist-engine .filter-popup label { display: block; padding: 6px 8px; border-radius: 3px; cursor: pointer; white-space: nowrap; font-weight: normal; }
+      #flexlist-engine .filter-popup label:hover { background-color: #f5f5f5; }
+      #flexlist-engine .filter-popup input { margin-right: 8px; vertical-align: middle; }
       /* --- グループヘッダー / Group Header --- */
-      #datatable-engine .group-header-row td { background-color: #e8e8e8; font-weight: bold; padding: 10px 15px; border-top: 2px solid #ccc; border-bottom: 1px solid #ccc; }
+      #flexlist-engine .group-header-row td { background-color: #e8e8e8; font-weight: bold; padding: 10px 15px; border-top: 2px solid #ccc; border-bottom: 1px solid #ccc; }
       
       /* --- ページネーション / Pagination --- */
-      #datatable-engine .pagination { padding: 15px; text-align: center; }
-      #datatable-engine .pagination li { display: inline-block; }
-      #datatable-engine .pagination a { display: block; padding: 5px 10px; text-decoration: none; border-radius: 3px; color: #333; }
-      #datatable-engine .pagination a:hover { background-color: #e0d8c8; }
-      #datatable-engine .pagination .active a { font-weight: bold; background-color: #c5a15a; color: #fff; }
+      #flexlist-engine .pagination { padding: 15px; text-align: center; }
+      #flexlist-engine .pagination li { display: inline-block; }
+      #flexlist-engine .pagination a { display: block; padding: 5px 10px; text-decoration: none; border-radius: 3px; color: #333; }
+      #flexlist-engine .pagination a:hover { background-color: #e0d8c8; }
+      #flexlist-engine .pagination .active a { font-weight: bold; background-color: #c5a15a; color: #fff; }
     </style>
 EOD;
 }
