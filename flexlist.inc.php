@@ -316,19 +316,29 @@ function plugin_flexlist_get_js_events($config)
                 performMasterSort();
             });
             list.on('updated', function(l) {
-                const listEl = l.list; const existingHeaders = listEl.querySelectorAll('.group-header-row');
+                const listEl = l.list;
+                const existingHeaders = listEl.querySelectorAll('.group-header-row');
                 existingHeaders.forEach(header => header.remove());
-                if (currentGroupKey === 'none') return;
-                let lastGroup = null;
-                l.visibleItems.forEach(item => {
-                    const rawValue = item.values()[currentGroupKey] || 'N/A';
-                    const currentGroup = rawValue.replace(/<[^>]*>?/gm, '').trim();
-                    if (currentGroup !== lastGroup) {
-                        const headerRow = document.createElement('tr'); headerRow.className = 'group-header-row';
-                        headerRow.innerHTML = `<td colspan="\${js_config.length}" class="group-header">\${currentGroup}</td>`;
-                        listEl.insertBefore(headerRow, item.elm); lastGroup = currentGroup;
-                    }
-                });
+                if (currentGroupKey !== 'none') {
+                    let lastGroup = null;
+                    l.visibleItems.forEach(item => {
+                        const rawValue = item.values()[currentGroupKey] || 'N/A';
+                        const currentGroup = rawValue.replace(/<[^>]*>?/gm, '').trim();
+                        if (currentGroup !== lastGroup) {
+                            const headerRow = document.createElement('tr');
+                            headerRow.className = 'group-header-row';
+                            headerRow.innerHTML = `<td colspan="\${js_config.length}" class="group-header">\${currentGroup}</td>`;
+                            listEl.insertBefore(headerRow, item.elm);
+                            lastGroup = currentGroup;
+                        }
+                    });
+                }
+
+                document.querySelectorAll('#flexlist-engine .sort').forEach(b => b.classList.remove('asc', 'desc'));
+                for(const key in sortState) {
+                    const btn = document.querySelector(`.sort[data-sort="\${key}"]`);
+                    if(btn) btn.classList.add(sortState[key]);
+                }
             });
         }
         function setupFilters() {
@@ -377,15 +387,25 @@ function plugin_flexlist_get_js_events($config)
         function setupSorting() {
             document.querySelectorAll('#flexlist-engine .sort').forEach(button => {
                 button.addEventListener('click', function(e) {
-                    e.preventDefault(); const sortKey = this.getAttribute('data-sort');
+                    e.preventDefault();
+                    const sortKey = this.getAttribute('data-sort');
+                    
                     if (!e.ctrlKey && !e.metaKey) {
-                        const currentState = sortState[sortKey]; sortState = {};
-                        if (currentState === 'asc') { sortState[sortKey] = 'desc'; } else { sortState[sortKey] = 'asc'; }
-                    } else {
-                        if (!sortState[sortKey] || sortState[sortKey] === 'desc') { sortState[sortKey] = 'asc'; } else { delete sortState[sortKey]; }
+                        const currentState = sortState[sortKey];
+                        sortState = {}; // Reset for single-column sort
+                        if (currentState === 'asc') {
+                            sortState[sortKey] = 'desc';
+                        } else {
+                            sortState[sortKey] = 'asc';
+                        }
+                    } else { // Multi-column sort
+                        if (!sortState[sortKey] || sortState[sortKey] === 'desc') {
+                            sortState[sortKey] = 'asc';
+                        } else {
+                            delete sortState[sortKey];
+                        }
                     }
-                    document.querySelectorAll('#flexlist-engine .sort').forEach(b => b.classList.remove('asc', 'desc'));
-                    for(const key in sortState) { const btn = document.querySelector(`.sort[data-sort="\${key}"]`); if(btn) btn.classList.add(sortState[key]); }
+
                     performMasterSort();
                 });
             });
