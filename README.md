@@ -1,1 +1,1 @@
-# pukiwikiplugin
+# pukiwiki-plugin
